@@ -1,6 +1,6 @@
 <?php
 /*
-	Question2Answer Ask Notices plugin, v0.9
+	Question2Answer Ask Notices plugin, v1.0
 	License: http://www.gnu.org/licenses/gpl.html
 */
 
@@ -21,7 +21,6 @@ class qa_ask_notices
 		$json = qa_opt('ask_notices_data');
 		$data = json_decode($json, true);
 		$post = @$_POST['ask_notices'];
-// 		echo '<pre>', print_r($post,true), '</pre>';
 
 		$saved_msg = '';
 		$form_btn = array(
@@ -37,14 +36,12 @@ class qa_ask_notices
 
 		if ( qa_clicked('ask_notices_add') )
 		{
-			// add a blank field and save current data
-			$post[] = array(
+			// save current data then add a blank field
+			$data = $this->_save_notices( $post );
+			$data[] = array(
 				'keys' => '',
 				'text' => '',
 			);
-
-			$data = $this->_save_notices( $post );
-			$saved_msg = 'Settings saved.';
 		}
 
 		if ( qa_clicked('ask_notices_save') )
@@ -136,14 +133,3 @@ class qa_ask_notices
 	}
 
 }
-
-/*
-best,worst,should,better
-Your question appears to be subjective and may be closed.<br>Please check the guidelines to the right and the <a href="/pokebase/rules">rules page</a>.
-
-moveset
-If you are looking for Pokemon movesets, we already have them! Please use the search box above or check the <a href="/pokebase/rules">rules page</a> for more information.
-
-team
-All <q>Rate My Team</q> type questions must be asked on the <a href="/pokebase/rmt/">Battle Subway section here</a>.
-*/
