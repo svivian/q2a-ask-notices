@@ -50,20 +50,6 @@ class qa_ask_notices
 			$saved_msg = 'Settings saved.';
 		}
 
-		if ( empty($data) )
-		{
-			return array(
-				'note' => 'testing notes',
-				'custom' => 'notes testing',
-				'html' => 'qwerty',
-				'style' => 'wide',
-				'ok' => $saved_msg,
-				'fields' => $this->_notice_fields(0),
-				'buttons' => $form_btn,
-			);
-		}
-
-
 		// data already exists: set up array of fields
 		$fields = array(
 			array(
