@@ -8,6 +8,7 @@ class qa_ask_notices
 {
 	private $directory;
 	private $urltoroot;
+	private $opt_match = 'ask_notices_match';
 
 	public function load_module($directory, $urltoroot)
 	{
@@ -21,6 +22,8 @@ class qa_ask_notices
 		$json = qa_opt('ask_notices_data');
 		$data = json_decode($json, true);
 		$post = @$_POST['ask_notices'];
+
+		$an_match = qa_opt($this->opt_match);
 
 		$saved_msg = '';
 		$form_btn = array(
@@ -46,6 +49,9 @@ class qa_ask_notices
 
 		if ( qa_clicked('ask_notices_save') )
 		{
+			$an_match = qa_post_text($this->opt_match) ? '1' : '0';
+			qa_opt($this->opt_match, $an_match);
+
 			$data = $this->_save_notices( $post );
 			$saved_msg = 'Settings saved.';
 		}
@@ -53,9 +59,16 @@ class qa_ask_notices
 		// data already exists: set up array of fields
 		$fields = array(
 			array(
+				'type' => 'checkbox',
+				'label' => 'Match parts of words:',
+				'tags' => 'name="ask_notices_match"',
+				'value' => $an_match === '1',
+				'note' => 'Tick to match anywhere in the string, or if using CJK languages.',
+			),
+			array(
 				'style' => 'tall',
 				'type' => 'static',
-				'note' => 'Keywords: the trigger words, separated by commas, e.g. <code>best,worst</code>.<br>Notice: the message you wish to display (HTML allowed), e.g. <code>Your question appears to be subjective and &lt;em&gt;may be closed&lt;/em&gt;.</code>',
+				'note' => 'Keywords: the trigger words, separated by commas, e.g. <code>best,worst</code>.<br>Notice: the message you wish to display (HTML allowed), e.g. <code>Your question appears to be &lt;em&gt;subjective&lt;/em&gt;.</code>',
 			),
 		);
 		for ( $i = 0, $len = count($data); $i < $len; $i++ )
