@@ -2,6 +2,7 @@ $(function(){
 	var $input = $('#title');
 	var err_style = 'display: none; font-size: 13px; font-weight: normal';
 
+	//ASK_NOTICE_MATCH
 	//ASK_NOTICE_DATA
 
 	function make_error( msg )
@@ -13,7 +14,10 @@ $(function(){
 	{
 		for ( var i in keywords )
 		{
-			var regex = '\\b'+keywords[i]+'\\b'
+			var regex = keywords[i];
+			if ( !match_anywhere )
+				regex = '\\b'+regex+'\\b';
+
 			if ( input.match(regex) )
 				return true;
 		}
@@ -25,10 +29,10 @@ $(function(){
 		var title = $(this).val().toLowerCase();
 		$err = null;
 
-		for ( var n in ask_notices )
+		for ( var n in notices )
 		{
-			var keywords = ask_notices[n].keys.toLowerCase().split(',');
-			var message = ask_notices[n].text;
+			var keywords = notices[n].keys.toLowerCase().split(',');
+			var message = notices[n].text;
 			if ( find_triggers(keywords, title) )
 				$err = make_error(message);
 		}
