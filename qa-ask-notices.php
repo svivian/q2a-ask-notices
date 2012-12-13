@@ -28,11 +28,11 @@ class qa_ask_notices
 		$saved_msg = '';
 		$form_btn = array(
 			array(
-				'label' => 'Add notice',
+				'label' => qa_lang_html('asknotices/admin_add_notice'),
 				'tags' => 'name="ask_notices_add"',
 			),
 			array(
-				'label' => 'Save Changes',
+				'label' => qa_lang_html('admin/save_options_button'),
 				'tags' => 'name="ask_notices_save"',
 			),
 		);
@@ -53,36 +53,37 @@ class qa_ask_notices
 			qa_opt($this->opt_match, $an_match);
 
 			$data = $this->_save_notices( $post );
-			$saved_msg = 'Settings saved.';
+			$saved_msg = qa_lang_html('admin/options_saved');
 		}
 
 		// data already exists: set up array of fields
 		$fields = array(
 			array(
 				'type' => 'checkbox',
-				'label' => 'Match parts of words:',
+				'label' => qa_lang('asknotices/admin_match_label'),
 				'tags' => 'name="ask_notices_match"',
 				'value' => $an_match === '1',
-				'note' => 'Tick to match anywhere in the string, or if using CJK languages.',
+				'note' => qa_lang('asknotices/admin_match_note'),
 			),
 			array(
 				'style' => 'tall',
 				'type' => 'static',
-				'note' => 'Keywords: the trigger words, separated by commas, e.g. <code>best,worst</code>.<br>Notice: the message you wish to display (HTML allowed), e.g. <code>Your question appears to be &lt;em&gt;subjective&lt;/em&gt;.</code>',
+				'note' => qa_lang('asknotices/admin_data_note'),
 			),
 		);
 		for ( $i = 0, $len = count($data); $i < $len; $i++ )
 		{
 			$fields[] = array(
-				'label' => 'Keywords #'.($i+1),
+				'label' => qa_lang_html_sub('asknotices/admin_keywords_n', ($i+1)),
 				'tags' => 'name="ask_notices['.$i.'][keys]"',
 				'value' => qa_html($data[$i]['keys']),
 			);
 			$fields[] = array(
-				'label' => 'Notice #'.($i+1),
+				'label' => qa_lang_html_sub('asknotices/admin_notice_n', ($i+1)),
 				'tags' => 'name="ask_notices['.$i.'][text]"',
 				'value' => qa_html($data[$i]['text']),
-				'note' => '<label><input type="checkbox" name="ask_notices['.$i.'][delete]"> Delete</label>',
+				'note' => '<label style="white-space:nowrap"><input type="checkbox" name="ask_notices['.$i.'][delete]"> ' .
+					qa_lang_html('asknotices/admin_delete') . '</label>',
 			);
 			$fields[] = array(
 				'type' => 'blank',

@@ -32,3 +32,4 @@ if ( !defined('QA_VERSION') )
 
 qa_register_plugin_module('module', 'qa-ask-notices.php', 'qa_ask_notices', 'Ask Notices');
 qa_register_plugin_layer('qa-an-layer.php', 'Ask Notices Layer');
+qa_register_plugin_phrases('qa-an-lang-*.php', 'asknotices');
