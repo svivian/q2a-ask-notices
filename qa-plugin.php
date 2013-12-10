@@ -1,14 +1,15 @@
 <?php
 /*
 	Plugin Name: Ask Notices
-	Plugin URI: https://github.com/svivian/q2a-tagging-tools
-	Plugin Description: Display error notices if the user types
-	Plugin Version: 0.9
+	Plugin URI: https://github.com/svivian/q2a-ask-notices
+	Plugin Description: Display error notices if the user types certain phrases
+	Plugin Version: 0.10
 	Plugin Date: 2012-03-07
 	Plugin Author: Scott Vivian
 	Plugin Author URI: http://codelair.co.uk/
 	Plugin License: GPLv3
 	Plugin Minimum Question2Answer Version: 1.4
+	Plugin Update Check URI: https://raw.github.com/svivian/q2a-ask-notices/master/qa-plugin.php
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
