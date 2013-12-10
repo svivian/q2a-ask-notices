@@ -1,6 +1,6 @@
 <?php
 /*
-	Question2Answer Ask Notices plugin, v1.0
+	Question2Answer Ask Notices plugin
 	License: http://www.gnu.org/licenses/gpl.html
 */
 
