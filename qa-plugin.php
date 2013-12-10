@@ -3,7 +3,7 @@
 	Plugin Name: Ask Notices
 	Plugin URI: https://github.com/svivian/q2a-ask-notices
 	Plugin Description: Display error notices if the user types certain phrases
-	Plugin Version: 0.10
+	Plugin Version: 1.1
 	Plugin Date: 2012-03-07
 	Plugin Author: Scott Vivian
 	Plugin Author URI: http://codelair.co.uk/
