@@ -6,32 +6,29 @@
 
 class qa_html_theme_layer extends qa_html_theme_base
 {
-	// theme replacement functions
-
+	// add JavaScript
 	function head_script()
 	{
 		qa_html_theme_base::head_script();
 
-		if ( $this->template == 'ask' )
-		{
-			$json = qa_opt('ask_notices_data');
-			$data = json_decode( $json, true );
-			if ( count($data) === 0 )
-				return;
+		if ( $this->template != 'ask' )
+			return;
 
-			$tmpl = file_get_contents( QA_HTML_THEME_LAYER_DIRECTORY.'/template.js' );
+		$json = qa_opt('ask_notices_data');
+		$data = json_decode( $json, true );
+		if ( count($data) === 0 )
+			return;
 
-			// import matching option
-			$match_anywhere = qa_opt('ask_notices_match') === '1' ? 'true' : 'false';
-			$js_match = 'var match_anywhere = ' . $match_anywhere . ';';
-			$tmpl = str_replace('//ASK_NOTICE_MATCH', $js_match, $tmpl);
+		$js = file_get_contents( QA_HTML_THEME_LAYER_DIRECTORY.'/template.js' );
 
-			// import notices
-			$js_notices = 'var notices = ' . $json . ';';
-			$tmpl = str_replace( '//ASK_NOTICE_DATA', $js_notices, $tmpl );
+		// import matching option
+		$matchAnywhere = qa_opt('ask_notices_match') === '1' ? 'true' : 'false';
+		$js = str_replace('ASK_NOTICE_MATCH', $matchAnywhere, $js);
 
-			$this->output_raw('<script>' . $tmpl . '</script>');
-		}
+		// import notices
+		$js = str_replace('ASK_NOTICE_DATA', $json, $js);
+
+		$this->output_raw('<script>'.$js.'</script>');
 	}
 
 }

@@ -1,9 +1,11 @@
-$(function(){
+
+$(function() {
+
 	var $input = $('#title');
 	var err_style = 'display: none; font-size: 13px; font-weight: normal';
 
-	//ASK_NOTICE_MATCH
-	//ASK_NOTICE_DATA
+	var matchAnywhere = ASK_NOTICE_MATCH;
+	var notices = ASK_NOTICE_DATA;
 
 	function make_error( msg )
 	{
@@ -15,7 +17,7 @@ $(function(){
 		for ( var i in keywords )
 		{
 			var regex = keywords[i];
-			if ( !match_anywhere )
+			if ( !matchAnywhere )
 				regex = '\\b'+regex+'\\b';
 
 			if ( input.match(regex) )
@@ -24,7 +26,7 @@ $(function(){
 		return false;
 	}
 
-	$input.change(function(){
+	$input.change(function() {
 		$('#qa-error-title').remove();
 		var title = $(this).val().toLowerCase();
 		$err = null;
