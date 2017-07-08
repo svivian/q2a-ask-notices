@@ -21,7 +21,7 @@ class qa_ask_notices
 		// data is stored as JSON array of fields
 		$json = qa_opt('ask_notices_data');
 		$data = json_decode($json, true);
-		$post = @$_POST['ask_notices'];
+		$post = isset($_POST['ask_notices']) ? $_POST['ask_notices'] : array();
 
 		$an_match = qa_opt($this->opt_match);
 
@@ -117,6 +117,9 @@ class qa_ask_notices
 
 	private function _save_notices( $post )
 	{
+		if (!is_array($post))
+			return array();
+
 		$data = array();
 		foreach ( $post as $i=>$note )
 		{
