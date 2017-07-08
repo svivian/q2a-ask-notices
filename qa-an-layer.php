@@ -11,15 +11,17 @@ class qa_html_theme_layer extends qa_html_theme_base
 	{
 		qa_html_theme_base::head_script();
 
-		if ( $this->template != 'ask' )
+		if ($this->template != 'ask') {
 			return;
+		}
 
 		$json = qa_opt('ask_notices_data');
-		$data = json_decode( $json, true );
-		if ( count($data) === 0 )
+		$data = json_decode($json, true);
+		if (count($data) === 0) {
 			return;
+		}
 
-		$js = file_get_contents( QA_HTML_THEME_LAYER_DIRECTORY.'/template.js' );
+		$js = file_get_contents(QA_HTML_THEME_LAYER_DIRECTORY.'/template.js');
 
 		// import matching option
 		$matchAnywhere = qa_opt('ask_notices_match') === '1' ? 'true' : 'false';

@@ -16,7 +16,7 @@ class qa_ask_notices
 		$this->urltoroot = $urltoroot;
 	}
 
-	public function admin_form( &$qa_content )
+	public function admin_form(&$qa_content)
 	{
 		// data is stored as JSON array of fields
 		$json = qa_opt('ask_notices_data');
@@ -37,22 +37,20 @@ class qa_ask_notices
 			),
 		);
 
-		if ( qa_clicked('ask_notices_add') )
-		{
+		if (qa_clicked('ask_notices_add')) {
 			// save current data then add a blank field
-			$data = $this->_save_notices( $post );
+			$data = $this->_save_notices($post);
 			$data[] = array(
 				'keys' => '',
 				'text' => '',
 			);
 		}
 
-		if ( qa_clicked('ask_notices_save') )
-		{
+		if (qa_clicked('ask_notices_save')) {
 			$an_match = qa_post_text($this->opt_match) ? '1' : '0';
 			qa_opt($this->opt_match, $an_match);
 
-			$data = $this->_save_notices( $post );
+			$data = $this->_save_notices($post);
 			$saved_msg = qa_lang_html('admin/options_saved');
 		}
 
@@ -71,8 +69,8 @@ class qa_ask_notices
 				'note' => qa_lang('asknotices/admin_data_note'),
 			),
 		);
-		for ( $i = 0, $len = count($data); $i < $len; $i++ )
-		{
+
+		for ($i = 0, $len = count($data); $i < $len; $i++) {
 			$fields[] = array(
 				'label' => qa_lang_html_sub('asknotices/admin_keywords_n', ($i+1)),
 				'tags' => 'name="ask_notices['.$i.'][keys]"',
@@ -99,7 +97,7 @@ class qa_ask_notices
 	}
 
 
-	private function _notice_fields( $n )
+	private function _notice_fields($n)
 	{
 		return array(
 			array(
@@ -115,22 +113,21 @@ class qa_ask_notices
 		);
 	}
 
-	private function _save_notices( $post )
+	private function _save_notices($post)
 	{
-		if (!is_array($post))
+		if (!is_array($post)) {
 			return array();
+		}
 
 		$data = array();
-		foreach ( $post as $i=>$note )
-		{
-			if ( !isset( $note['delete'] ) )
-			{
-				$data[$i]['keys'] = preg_replace( '/\r\n?/', "\n", trim( qa_gpc_to_string($note['keys']) ) );
-				$data[$i]['text'] = preg_replace( '/\r\n?/', "\n", trim( qa_gpc_to_string($note['text']) ) );
+		foreach ($post as $i=>$note) {
+			if (!isset($note['delete'])) {
+				$data[$i]['keys'] = preg_replace('/\r\n?/', "\n", trim(qa_gpc_to_string($note['keys'])));
+				$data[$i]['text'] = preg_replace('/\r\n?/', "\n", trim(qa_gpc_to_string($note['text'])));
 			}
 		}
 
-		qa_opt( 'ask_notices_data', json_encode($data) );
+		qa_opt('ask_notices_data', json_encode($data));
 
 		return $data;
 	}

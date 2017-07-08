@@ -7,22 +7,23 @@ $(function() {
 	var matchAnywhere = ASK_NOTICE_MATCH;
 	var notices = ASK_NOTICE_DATA;
 
-	function make_error( msg )
+	function make_error(msg)
 	{
-		return $('<div id="qa-error-title" class="qa-error" style="' + err_style + '">'+msg+'</div>');
+		return $('<div id="qa-error-title" class="qa-error" style="' + err_style + '">' + msg + '</div>');
 	}
 
-	function find_triggers( keywords, input )
+	function find_triggers(keywords, input)
 	{
-		for ( var i in keywords )
-		{
+		for (var i in keywords) {
 			var regex = keywords[i];
-			if ( !matchAnywhere )
+			if (!matchAnywhere) {
 				regex = '\\b'+regex+'\\b';
-
-			if ( input.match(regex) )
+			}
+			if (input.match(regex)) {
 				return true;
+			}
 		}
+
 		return false;
 	}
 
@@ -31,16 +32,17 @@ $(function() {
 		var title = $(this).val().toLowerCase();
 		$err = null;
 
-		for ( var n in notices )
-		{
+		for (var n in notices) {
 			var keywords = notices[n].keys.toLowerCase().split(',');
 			var message = notices[n].text;
-			if ( find_triggers(keywords, title) )
+			if (find_triggers(keywords, title)) {
 				$err = make_error(message);
+			}
 		}
 
-		if ( $err )
+		if ($err) {
 			$err.insertAfter($input).fadeIn('slow');
+		}
 	});
 
 });
